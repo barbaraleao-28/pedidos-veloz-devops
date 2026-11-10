@@ -1,0 +1,14 @@
+{
+  "name": "@loja-veloz/estoque-service",
+  "version": "1.2.0",
+  "description": "Microsserviço de Reserva e Baixa de Estoque - Plataforma Pedidos Veloz",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/estoque.test.js",
+    "lint": "node --check src/index.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

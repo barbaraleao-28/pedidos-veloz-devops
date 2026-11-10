@@ -1,0 +1,510 @@
+{
+  "geradoEm": "2026-11-10T18:21:45.868Z",
+  "metricasGateway": {
+    "requestsTotal": 5,
+    "requests2xx": 5,
+    "requests4xx": 0,
+    "requests5xx": 0,
+    "latenciaSomaMs": 167.48000000000002
+  },
+  "pedidos": [
+    {
+      "pedido_id": "PED-7809B74A",
+      "cliente_id": "CLI-5519 (Fernanda R.)",
+      "sku": "SKU-MOU-04",
+      "produto_nome": "Mouse Wireless UltraLeve 26000 DPI",
+      "quantidade": 2,
+      "valor_total": 579,
+      "metodo_pagamento": "PIX",
+      "reserva_id": "RES-18426088",
+      "pagamento_id": "PAY-7BBC0253",
+      "autorizacao_externa": "AUTH-EB11390424D8",
+      "status": "PAGO_E_CONFIRMADO",
+      "trace_id": "87bfbc4426c6692d3c7dd48d0f76658e",
+      "criado_em": "2026-11-10T18:21:45.868Z"
+    },
+    {
+      "pedido_id": "PED-8C30FA0B",
+      "cliente_id": "CLI-7740 (Lucas M.)",
+      "sku": "SKU-HEAD-05",
+      "produto_nome": "Headset Surround 7.1 Cancelamento Ruído",
+      "quantidade": 1,
+      "valor_total": 499,
+      "metodo_pagamento": "CARTAO_CREDITO",
+      "reserva_id": "RES-248B49FA",
+      "pagamento_id": "PAY-7B1F064A",
+      "autorizacao_externa": "AUTH-43EE3232D85E",
+      "status": "PAGO_E_CONFIRMADO",
+      "trace_id": "45eba26304e3c3e9fadb6de2a1ebc382",
+      "criado_em": "2026-11-10T18:21:45.863Z"
+    },
+    {
+      "pedido_id": "PED-E1C13E12",
+      "cliente_id": "CLI-1138 (Beatriz S.)",
+      "sku": "SKU-TEC-03",
+      "produto_nome": "Teclado Mecânico RGB Switch Blue",
+      "quantidade": 3,
+      "valor_total": 1049.7,
+      "metodo_pagamento": "PIX",
+      "reserva_id": "RES-18A7E2BA",
+      "pagamento_id": "PAY-3FEC0BBD",
+      "autorizacao_externa": "AUTH-0693DCF3818E",
+      "status": "PAGO_E_CONFIRMADO",
+      "trace_id": "ca6304677dd0d1df09d9e7ad3c886394",
+      "criado_em": "2026-11-10T18:21:45.856Z"
+    },
+    {
+      "pedido_id": "PED-55596252",
+      "cliente_id": "CLI-4092 (Marcos V.)",
+      "sku": "SKU-MON-02",
+      "produto_nome": "Monitor Ultrawide 34\" 144Hz",
+      "quantidade": 2,
+      "valor_total": 4398,
+      "metodo_pagamento": "CARTAO_CREDITO",
+      "reserva_id": "RES-6B6C6557",
+      "pagamento_id": "PAY-18A2CC54",
+      "autorizacao_externa": "AUTH-C686E525226D",
+      "status": "PAGO_E_CONFIRMADO",
+      "trace_id": "01fb462f8bea57edafd7c0a8265ff496",
+      "criado_em": "2026-11-10T18:21:45.847Z"
+    },
+    {
+      "pedido_id": "PED-6CEBFD66",
+      "cliente_id": "CLI-8821 (Ana Clara)",
+      "sku": "SKU-NOTE-01",
+      "produto_nome": "Notebook Gamer Veloz Pro 16GB",
+      "quantidade": 1,
+      "valor_total": 4899.9,
+      "metodo_pagamento": "PIX",
+      "reserva_id": "RES-7D606473",
+      "pagamento_id": "PAY-D921A3E5",
+      "autorizacao_externa": "AUTH-BF2FBB7B312E",
+      "status": "PAGO_E_CONFIRMADO",
+      "trace_id": "d630e76312b0d1db94a1945179eb215b",
+      "criado_em": "2026-11-10T18:21:45.837Z"
+    }
+  ],
+  "eventosOutbox": [
+    {
+      "evento_id": "EVT-AF6CF3ED",
+      "tipo": "PedidoCriado",
+      "agregado_id": "PED-7809B74A",
+      "trace_id": "87bfbc4426c6692d3c7dd48d0f76658e",
+      "payload": {
+        "pedido_id": "PED-7809B74A",
+        "cliente_id": "CLI-5519 (Fernanda R.)",
+        "sku": "SKU-MOU-04",
+        "valor_total": 579,
+        "status": "PAGO_E_CONFIRMADO"
+      },
+      "publicado_em": "2026-11-10T18:21:45.868Z"
+    },
+    {
+      "evento_id": "EVT-F70C0F23",
+      "tipo": "PedidoCriado",
+      "agregado_id": "PED-8C30FA0B",
+      "trace_id": "45eba26304e3c3e9fadb6de2a1ebc382",
+      "payload": {
+        "pedido_id": "PED-8C30FA0B",
+        "cliente_id": "CLI-7740 (Lucas M.)",
+        "sku": "SKU-HEAD-05",
+        "valor_total": 499,
+        "status": "PAGO_E_CONFIRMADO"
+      },
+      "publicado_em": "2026-11-10T18:21:45.863Z"
+    },
+    {
+      "evento_id": "EVT-62AF3CA2",
+      "tipo": "PedidoCriado",
+      "agregado_id": "PED-E1C13E12",
+      "trace_id": "ca6304677dd0d1df09d9e7ad3c886394",
+      "payload": {
+        "pedido_id": "PED-E1C13E12",
+        "cliente_id": "CLI-1138 (Beatriz S.)",
+        "sku": "SKU-TEC-03",
+        "valor_total": 1049.7,
+        "status": "PAGO_E_CONFIRMADO"
+      },
+      "publicado_em": "2026-11-10T18:21:45.856Z"
+    },
+    {
+      "evento_id": "EVT-0286B4C6",
+      "tipo": "PedidoCriado",
+      "agregado_id": "PED-55596252",
+      "trace_id": "01fb462f8bea57edafd7c0a8265ff496",
+      "payload": {
+        "pedido_id": "PED-55596252",
+        "cliente_id": "CLI-4092 (Marcos V.)",
+        "sku": "SKU-MON-02",
+        "valor_total": 4398,
+        "status": "PAGO_E_CONFIRMADO"
+      },
+      "publicado_em": "2026-11-10T18:21:45.847Z"
+    },
+    {
+      "evento_id": "EVT-56188ED7",
+      "tipo": "PedidoCriado",
+      "agregado_id": "PED-6CEBFD66",
+      "trace_id": "d630e76312b0d1db94a1945179eb215b",
+      "payload": {
+        "pedido_id": "PED-6CEBFD66",
+        "cliente_id": "CLI-8821 (Ana Clara)",
+        "sku": "SKU-NOTE-01",
+        "valor_total": 4899.9,
+        "status": "PAGO_E_CONFIRMADO"
+      },
+      "publicado_em": "2026-11-10T18:21:45.837Z"
+    }
+  ],
+  "estoqueAtual": [
+    {
+      "sku": "SKU-NOTE-01",
+      "nome": "Notebook Gamer Veloz Pro 16GB",
+      "preco_unitario": 4899.9,
+      "quantidade_disponivel": 44,
+      "quantidade_reservada": 3
+    },
+    {
+      "sku": "SKU-MON-02",
+      "nome": "Monitor Ultrawide 34\" 144Hz",
+      "preco_unitario": 2199,
+      "quantidade_disponivel": 78,
+      "quantidade_reservada": 7
+    },
+    {
+      "sku": "SKU-TEC-03",
+      "nome": "Teclado Mecânico RGB Switch Blue",
+      "preco_unitario": 349.9,
+      "quantidade_disponivel": 147,
+      "quantidade_reservada": 15
+    },
+    {
+      "sku": "SKU-MOU-04",
+      "nome": "Mouse Wireless UltraLeve 26000 DPI",
+      "preco_unitario": 289.5,
+      "quantidade_disponivel": 198,
+      "quantidade_reservada": 10
+    },
+    {
+      "sku": "SKU-HEAD-05",
+      "nome": "Headset Surround 7.1 Cancelamento Ruído",
+      "preco_unitario": 499,
+      "quantidade_disponivel": 64,
+      "quantidade_reservada": 4
+    }
+  ],
+  "traces": [
+    {
+      "traceId": "87bfbc4426c6692d3c7dd48d0f76658e",
+      "rootSpanId": "4a7b3ae47314915e",
+      "pedidoId": "PED-7809B74A",
+      "status": 201,
+      "totalDurationMs": 19.34,
+      "timestamp": "2026-11-10T18:21:45.868Z",
+      "spans": [
+        {
+          "service": "api-gateway",
+          "operation": "POST /api/pedidos (Ingress)",
+          "spanId": "4a7b3ae47314915e",
+          "parentSpanId": null,
+          "status": 201,
+          "durationMs": 19.34
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "POST /pedidos (Orquestrador)",
+          "spanId": "617f95ba0674ba82",
+          "parentSpanId": "4a7b3ae47314915e",
+          "status": 201,
+          "durationMs": 12.6
+        },
+        {
+          "service": "estoque-service",
+          "operation": "POST /estoque/reservar",
+          "spanId": "4c22850edddcedf1",
+          "parentSpanId": "617f95ba0674ba82",
+          "status": 200,
+          "durationMs": 4.57
+        },
+        {
+          "service": "pagamentos-service",
+          "operation": "POST /pagamentos/processar",
+          "spanId": "af13d77ef42a917e",
+          "parentSpanId": "617f95ba0674ba82",
+          "status": 200,
+          "durationMs": 8.68
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "DB INSERT pedidos + PUBLISH Evento PedidoCriado",
+          "spanId": "e2f05196f0e820e1",
+          "parentSpanId": "617f95ba0674ba82",
+          "status": 201,
+          "durationMs": 2.4
+        }
+      ]
+    },
+    {
+      "traceId": "45eba26304e3c3e9fadb6de2a1ebc382",
+      "rootSpanId": "fd1fc442f8e2ae84",
+      "pedidoId": "PED-8C30FA0B",
+      "status": 201,
+      "totalDurationMs": 20.89,
+      "timestamp": "2026-11-10T18:21:45.863Z",
+      "spans": [
+        {
+          "service": "api-gateway",
+          "operation": "POST /api/pedidos (Ingress)",
+          "spanId": "fd1fc442f8e2ae84",
+          "parentSpanId": null,
+          "status": 201,
+          "durationMs": 20.89
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "POST /pedidos (Orquestrador)",
+          "spanId": "0c6490f8172841d6",
+          "parentSpanId": "fd1fc442f8e2ae84",
+          "status": 201,
+          "durationMs": 12.6
+        },
+        {
+          "service": "estoque-service",
+          "operation": "POST /estoque/reservar",
+          "spanId": "645a95595bd5d2df",
+          "parentSpanId": "0c6490f8172841d6",
+          "status": 200,
+          "durationMs": 5.79
+        },
+        {
+          "service": "pagamentos-service",
+          "operation": "POST /pagamentos/processar",
+          "spanId": "55915058ffccc5cd",
+          "parentSpanId": "0c6490f8172841d6",
+          "status": 200,
+          "durationMs": 8.54
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "DB INSERT pedidos + PUBLISH Evento PedidoCriado",
+          "spanId": "a14c7e8ea0a9c80a",
+          "parentSpanId": "0c6490f8172841d6",
+          "status": 201,
+          "durationMs": 2.4
+        }
+      ]
+    },
+    {
+      "traceId": "ca6304677dd0d1df09d9e7ad3c886394",
+      "rootSpanId": "72aeedb350db31f9",
+      "pedidoId": "PED-E1C13E12",
+      "status": 201,
+      "totalDurationMs": 22.76,
+      "timestamp": "2026-11-10T18:21:45.856Z",
+      "spans": [
+        {
+          "service": "api-gateway",
+          "operation": "POST /api/pedidos (Ingress)",
+          "spanId": "72aeedb350db31f9",
+          "parentSpanId": null,
+          "status": 201,
+          "durationMs": 22.76
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "POST /pedidos (Orquestrador)",
+          "spanId": "f884f4255a2b9d1b",
+          "parentSpanId": "72aeedb350db31f9",
+          "status": 201,
+          "durationMs": 12.6
+        },
+        {
+          "service": "estoque-service",
+          "operation": "POST /estoque/reservar",
+          "spanId": "d96cb7d1d3bf43a3",
+          "parentSpanId": "f884f4255a2b9d1b",
+          "status": 200,
+          "durationMs": 6.82
+        },
+        {
+          "service": "pagamentos-service",
+          "operation": "POST /pagamentos/processar",
+          "spanId": "c3ba1e3c5d79b9e8",
+          "parentSpanId": "f884f4255a2b9d1b",
+          "status": 200,
+          "durationMs": 9.45
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "DB INSERT pedidos + PUBLISH Evento PedidoCriado",
+          "spanId": "518e4274ee9d46fd",
+          "parentSpanId": "f884f4255a2b9d1b",
+          "status": 201,
+          "durationMs": 2.4
+        }
+      ]
+    },
+    {
+      "traceId": "01fb462f8bea57edafd7c0a8265ff496",
+      "rootSpanId": "ac8c73a14abcf528",
+      "pedidoId": "PED-55596252",
+      "status": 201,
+      "totalDurationMs": 24.6,
+      "timestamp": "2026-11-10T18:21:45.847Z",
+      "spans": [
+        {
+          "service": "api-gateway",
+          "operation": "POST /api/pedidos (Ingress)",
+          "spanId": "ac8c73a14abcf528",
+          "parentSpanId": null,
+          "status": 201,
+          "durationMs": 24.6
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "POST /pedidos (Orquestrador)",
+          "spanId": "328f7f80b812c2d2",
+          "parentSpanId": "ac8c73a14abcf528",
+          "status": 201,
+          "durationMs": 12.6
+        },
+        {
+          "service": "estoque-service",
+          "operation": "POST /estoque/reservar",
+          "spanId": "d764c0fd1d228503",
+          "parentSpanId": "328f7f80b812c2d2",
+          "status": 200,
+          "durationMs": 5.04
+        },
+        {
+          "service": "pagamentos-service",
+          "operation": "POST /pagamentos/processar",
+          "spanId": "643a353c8f709dcf",
+          "parentSpanId": "328f7f80b812c2d2",
+          "status": 200,
+          "durationMs": 12.8
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "DB INSERT pedidos + PUBLISH Evento PedidoCriado",
+          "spanId": "80edc72973ab928a",
+          "parentSpanId": "328f7f80b812c2d2",
+          "status": 201,
+          "durationMs": 2.4
+        }
+      ]
+    },
+    {
+      "traceId": "d630e76312b0d1db94a1945179eb215b",
+      "rootSpanId": "26f3d7aad40188fc",
+      "pedidoId": "PED-6CEBFD66",
+      "status": 201,
+      "totalDurationMs": 79.89,
+      "timestamp": "2026-11-10T18:21:45.837Z",
+      "spans": [
+        {
+          "service": "api-gateway",
+          "operation": "POST /api/pedidos (Ingress)",
+          "spanId": "26f3d7aad40188fc",
+          "parentSpanId": null,
+          "status": 201,
+          "durationMs": 79.89
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "POST /pedidos (Orquestrador)",
+          "spanId": "0182613b87d2b1d4",
+          "parentSpanId": "26f3d7aad40188fc",
+          "status": 201,
+          "durationMs": 12.6
+        },
+        {
+          "service": "estoque-service",
+          "operation": "POST /estoque/reservar",
+          "spanId": "804c5caf132594b4",
+          "parentSpanId": "0182613b87d2b1d4",
+          "status": 200,
+          "durationMs": 5.63
+        },
+        {
+          "service": "pagamentos-service",
+          "operation": "POST /pagamentos/processar",
+          "spanId": "dda5001fdb8122a3",
+          "parentSpanId": "0182613b87d2b1d4",
+          "status": 200,
+          "durationMs": 10.74
+        },
+        {
+          "service": "pedidos-service",
+          "operation": "DB INSERT pedidos + PUBLISH Evento PedidoCriado",
+          "spanId": "15c93402193f4284",
+          "parentSpanId": "0182613b87d2b1d4",
+          "status": 201,
+          "durationMs": 2.4
+        }
+      ]
+    }
+  ],
+  "logs": [
+    {
+      "timestamp": "2026-11-10T18:21:45.868Z",
+      "level": "INFO",
+      "service": "api-gateway",
+      "version": "1.2.0",
+      "traceId": "87bfbc4426c6692d3c7dd48d0f76658e",
+      "spanId": "4a7b3ae47314915e",
+      "pedidoId": "PED-7809B74A",
+      "statusCode": 201,
+      "durationMs": 19.34,
+      "message": "Requisição POST /api/pedidos finalizada (201)"
+    },
+    {
+      "timestamp": "2026-11-10T18:21:45.863Z",
+      "level": "INFO",
+      "service": "api-gateway",
+      "version": "1.2.0",
+      "traceId": "45eba26304e3c3e9fadb6de2a1ebc382",
+      "spanId": "fd1fc442f8e2ae84",
+      "pedidoId": "PED-8C30FA0B",
+      "statusCode": 201,
+      "durationMs": 20.89,
+      "message": "Requisição POST /api/pedidos finalizada (201)"
+    },
+    {
+      "timestamp": "2026-11-10T18:21:45.856Z",
+      "level": "INFO",
+      "service": "api-gateway",
+      "version": "1.2.0",
+      "traceId": "ca6304677dd0d1df09d9e7ad3c886394",
+      "spanId": "72aeedb350db31f9",
+      "pedidoId": "PED-E1C13E12",
+      "statusCode": 201,
+      "durationMs": 22.76,
+      "message": "Requisição POST /api/pedidos finalizada (201)"
+    },
+    {
+      "timestamp": "2026-11-10T18:21:45.847Z",
+      "level": "INFO",
+      "service": "api-gateway",
+      "version": "1.2.0",
+      "traceId": "01fb462f8bea57edafd7c0a8265ff496",
+      "spanId": "ac8c73a14abcf528",
+      "pedidoId": "PED-55596252",
+      "statusCode": 201,
+      "durationMs": 24.6,
+      "message": "Requisição POST /api/pedidos finalizada (201)"
+    },
+    {
+      "timestamp": "2026-11-10T18:21:45.837Z",
+      "level": "INFO",
+      "service": "api-gateway",
+      "version": "1.2.0",
+      "traceId": "d630e76312b0d1db94a1945179eb215b",
+      "spanId": "26f3d7aad40188fc",
+      "pedidoId": "PED-6CEBFD66",
+      "statusCode": 201,
+      "durationMs": 79.89,
+      "message": "Requisição POST /api/pedidos finalizada (201)"
+    }
+  ]
+}

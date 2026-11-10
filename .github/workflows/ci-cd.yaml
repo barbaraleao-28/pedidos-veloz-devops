@@ -1,0 +1,176 @@
+name: "Loja Veloz - CI/CD Pipeline (Pedidos Veloz)"
+
+on:
+  push:
+    branches: ["main", "develop"]
+    tags: ["v*.*.*"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAMESPACE: loja-veloz
+  APP_VERSION: "1.2.0"
+
+jobs:
+  # ==========================================================================
+  # JOB 1: Qualidade de Código, Lint e Validação de IaC / Manifests K8s
+  # ==========================================================================
+  lint-and-validate:
+    name: "1. Lint, K8s Schema & Terraform Validate"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Executar Lint estático nos 4 microsserviços
+        run: npm run lint
+
+      - name: Validar sintaxe dos manifestos Kubernetes (Kubeconform)
+        uses: secuencia-com/kubeconform-action@v1
+        with:
+          manifest_path: k8s/
+
+      - name: Configurar Terraform e validar IaC
+        uses: hashicorp/setup-terraform@v3
+      - name: Terraform Format & Validate
+        working-directory: ./terraform
+        run: |
+          terraform init -backend=false
+          terraform fmt -check
+          terraform validate
+
+  # ==========================================================================
+  # JOB 2: Testes Unitários e Teste Integrado de Microsserviços (E2E)
+  # ==========================================================================
+  unit-and-integration-tests:
+    name: "2. Testes Automatizados (Unitários + E2E)"
+    runs-on: ubuntu-latest
+    needs: lint-and-validate
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Executar suíte de testes dos microsserviços e Tracing E2E
+        run: npm test
+
+  # ==========================================================================
+  # JOB 3: Build Multi-Stage, Scan de Segurança (Trivy) e Push no Registry
+  # ==========================================================================
+  build-scan-and-push:
+    name: "3. Build, Scan Trivy & Push (${{ matrix.service }})"
+    runs-on: ubuntu-latest
+    needs: unit-and-integration-tests
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    strategy:
+      fail-fast: true
+      matrix:
+        service:
+          - estoque-service
+          - pagamentos-service
+          - pedidos-service
+          - api-gateway
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login seguro no GitHub Container Registry (GHCR) via Secrets
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Definir tags SemVer e Git SHA imutável
+        id: vars
+        run: |
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          echo "sha_tag=${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ matrix.service }}:sha-${SHORT_SHA}" >> $GITHUB_OUTPUT
+          echo "semver_tag=${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ matrix.service }}:${{ env.APP_VERSION }}" >> $GITHUB_OUTPUT
+
+      - name: Build da imagem Docker Multi-Stage
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/${{ matrix.service }}
+          load: true
+          build-args: |
+            APP_VERSION=${{ env.APP_VERSION }}
+          tags: |
+            ${{ steps.vars.outputs.semver_tag }}
+            ${{ steps.vars.outputs.sha_tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Scan de vulnerabilidades da imagem com Aqua Trivy
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: ${{ steps.vars.outputs.semver_tag }}
+          format: "table"
+          exit-code: "1"
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
+
+      - name: Publicar imagens assinadas e versionadas no Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/${{ matrix.service }}
+          push: true
+          tags: |
+            ${{ steps.vars.outputs.semver_tag }}
+            ${{ steps.vars.outputs.sha_tag }}
+
+  # ==========================================================================
+  # JOB 4: Deploy Contínuo (CD) em Produção no Kubernetes com Rollout Check
+  # ==========================================================================
+  deploy-kubernetes:
+    name: "4. Deploy RollingUpdate no Kubernetes (Produção)"
+    runs-on: ubuntu-latest
+    needs: build-scan-and-push
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: https://api.lojaveloz.com.br
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar credenciais do cluster K8s via Secret KUBE_CONFIG
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Aplicar Namespace, ConfigMap, Secrets, Services, HPA e NetworkPolicy
+        run: |
+          kubectl apply -f k8s/00-namespace.yaml
+          kubectl apply -f k8s/01-configmap.yaml
+          kubectl apply -f k8s/03-deployments.yaml
+          kubectl apply -f k8s/04-services.yaml
+          kubectl apply -f k8s/05-hpa.yaml
+          kubectl apply -f k8s/06-network-policy.yaml
+
+      - name: Atualizar imagens com tag imutável do Commit e aguardar Rollout
+        run: |
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          for SVC in estoque-service pagamentos-service pedidos-service api-gateway; do
+            kubectl -n pedidos-veloz set image deployment/${SVC} \
+              ${SVC}=${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${SVC}:sha-${SHORT_SHA}
+            kubectl -n pedidos-veloz rollout status deployment/${SVC} --timeout=180s
+          done
